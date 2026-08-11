@@ -33,4 +33,5 @@ jobs:
         git config user.name "GitHub Actions"
         git add k8s/flask-deployment.yaml
         git commit -m "Update image to ${{ github.sha }}" || exit 0
+        git pull origin main --rebase 
         git push
