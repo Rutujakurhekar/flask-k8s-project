@@ -1,3 +1,5 @@
+<img width="1917" height="847" alt="image" src="https://github.com/user-attachments/assets/759b63da-d1b1-4418-8e0b-1eabe026c605" />
+
 # Flask K8s Project — Production-Style Deployment
 
 A minimal production-style application stack demonstrating containerization, 
