@@ -22,8 +22,10 @@ jobs:
       run: |
         docker build -t rutujakurhekar/flask-k8s-app:${{ github.sha }} ./app
         docker push rutujakurhekar/flask-k8s-app:${{ github.sha }}
+        docker tag rutujakurhekar/flask-k8s-app:${{ github.sha }} rutujakurhekar/flask-k8s-app:latest
+        docker push rutujakurhekar/flask-k8s-app:latest
 
-    - name: Update deployment image
+    - name: Update Kubernetes manifest
       run: |
         sed -i 's|rutujakurhekar/flask-k8s-app:.*|rutujakurhekar/flask-k8s-app:${{ github.sha }}|g' k8s/flask-deployment.yaml
 
@@ -32,6 +34,16 @@ jobs:
         git config user.email "github-actions@github.com"
         git config user.name "GitHub Actions"
         git add k8s/flask-deployment.yaml
-        git commit -m "Update image to ${{ github.sha }}" || exit 0
-        git pull origin main --rebase 
+        git commit -m "ci: update image to ${{ github.sha }}" || exit 0
         git push
+
+    - name: Deployment Summary
+      run: |
+        echo "============================================"
+        echo "DEPLOYMENT SUMMARY"
+        echo "============================================"
+        echo "Image: rutujakurhekar/flask-k8s-app:${{ github.sha }}"
+        echo "Status: Image built and pushed to Docker Hub"
+        echo "Manifest: k8s/flask-deployment.yaml updated"
+        echo "Next: kubectl apply -f k8s/flask-deployment.yaml"
+        echo "============================================"
