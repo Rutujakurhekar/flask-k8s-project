@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: flask-app
-        image: rutujakurhekar/flask-k8s-app:3b06289fe55f334df5e3eede3b68fb82ed75a2d6
+        image: rutujakurhekar/flask-k8s-app:e586584034fb4a0cdcdafa0520837546e2398a08
         ports:
         - containerPort: 5000
         env:
